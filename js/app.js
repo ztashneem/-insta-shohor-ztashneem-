@@ -121,3 +121,38 @@ const createPost = (post) => {
       `;
   return div;
 };
+const showPosts = (posts) => {
+  const productsContainer = document.getElementById("posts");
+  productsContainer.innerHTML = "";
+
+  posts.forEach((post) => {
+    const div = createPost(post);
+    productsContainer.appendChild(div);
+  });
+};
+
+const displayLikedPosts = () => {
+  document.getElementById("liked").innerHTML = '';
+  const likedPosts = getLikedPosts();
+  likedPosts.forEach((post) => {
+    const div = createPost(post);
+    document.getElementById("liked").appendChild(div);
+  });
+};
+
+const displayReportedPosts = () => {
+  document.getElementById("reported").innerHTML = '';
+  const reportedPosts = getReportedPosts();
+  reportedPosts.forEach((post) => {
+    const div = createPost(post);
+    document.getElementById("reported").appendChild(div);
+  });
+};
+
+const loadPosts = async () => {
+  let data = await fetch('../data/posts.json');
+  posts = await data.json();
+  showPosts(posts);
+}
+
+loadPosts();
